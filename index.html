@@ -114,12 +114,12 @@ input{
 <div class="page active" id="namePage">
   <h2>Enter your name 💕</h2>
 
-  <form name="loveForm" method="POST" data-netlify="true" onsubmit="startSite(event)">
-    <input type="hidden" name="form-name" value="loveForm">
-    <input id="username" name="username" placeholder="Your name" required>
-    <br><br>
-    <button type="submit">Start 💖</button>
-  </form>
+  <form name="loveForm" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="loveForm">
+  <input id="username" name="username" placeholder="Your name" required>
+  <button type="submit">Start 💖</button>
+</form>
+
 </div>
 
 <!-- Page 1 -->
@@ -207,15 +207,19 @@ function wrong(){
 }
 
 /* Start site */
-function startSite(e){
-  e.preventDefault();
+function startSite(){
   const name=document.getElementById("username").value;
-  document.getElementById("loveText").innerText=`Do you love me, ${name}? 💖`;
+
+  document.getElementById("loveText").innerText =
+    `Do you love me, ${name}? 💖`;
+
   go(1);
+
   const m=document.getElementById("music");
   m.volume=0.9;
   m.play();
 }
+
 
 /* Floating hearts (ALWAYS ON) */
 setInterval(()=>{
