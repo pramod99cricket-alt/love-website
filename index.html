@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+html,body{margin:0;padding:0;height:100%;overflow:hidden}
+
+.page{
+  display:none;
+  height:100vh;
+  width:100%;
+  padding:20px;
+  text-align:center;
+}
+.active{display:block}
+
+button{
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  cursor:pointer;
+  margin:10px;
+  background:#ff5fa2;
+  color:white;
+}
+
+input{
+  padding:12px;
+  width:80%;
+  max-width:280px;
+  border-radius:20px;
+  border:none;
+  font-size:16px;
+}
+
+/* Backgrounds */
+#namePage{background:#ffe0ec}
+#page1{background:#ffb6c1}
+#page2{background:#ffd1dc}
+#gift1,#gift2,#gift3{background:#ffe6f0}
+
+/* Panda */
+.panda{
+  width:140px;
+}
+
+/* Gifts */
+.gifts{
+  display:flex;
+  justify-content:space-around;
+  margin-top:70px;
+}
+.gift{
+  width:90px;
+  height:90px;
+  background:#ff69b4;
+  border-radius:15px;
+  position:relative;
+  cursor:pointer;
+}
+.gift::before{
+  content:'';
+  position:absolute;
+  width:100%;
+  height:10px;
+  background:#ff1493;
+  top:40px;
+}
+.gift::after{
+  content:'';
+  position:absolute;
+  width:10px;
+  height:100%;
+  background:#ff1493;
+  left:40px;
+}
+
+/* Back arrow */
+.back{
+  position:absolute;
+  top:15px;
+  left:15px;
+  font-size:24px;
+  cursor:pointer;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-100vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/03/07/audio_efcfa0c6c6.mp3">
+</audio>
+
+<!-- Name Page -->
+<div class="page active" id="namePage">
+  <h2>Enter your name 💕</h2>
+
+  <form name="loveForm" method="POST" data-netlify="true" onsubmit="startSite(event)">
+    <input type="hidden" name="form-name" value="loveForm">
+    <input id="username" name="username" placeholder="Your name" required>
+    <br><br>
+    <button type="submit">Start 💖</button>
+  </form>
+</div>
+
+<!-- Page 1 -->
+<div class="page" id="page1">
+  <img class="panda" src="https://media.tenor.com/6K4cQGZz3xAAAAAi/panda-kiss.gif">
+  <h1 id="loveText">Do you love me? 💖</h1>
+  <button onclick="go(2)">Yesss 💕</button>
+  <button onclick="wrong()">Nooo 🙈</button>
+</div>
+
+<!-- Page 2 -->
+<div class="page" id="page2">
+  <h1>Choose a gift 🎁</h1>
+  <div class="gifts">
+    <div class="gift" onclick="go(3)"></div>
+    <div class="gift" onclick="go(4)"></div>
+    <div class="gift" onclick="go(5)"></div>
+  </div>
+</div>
+
+<!-- Gift 1 -->
+<div class="page" id="gift1">
+  <div class="back" onclick="go(2)">⬅</div>
+  <img src="https://media.tenor.com/2roX3uxz_68AAAAi/cat-kiss.gif" width="150">
+  <p>
+    Happy birthday my love 🎂<br><br>
+    I love you so much 💖<br><br>
+    Sending you lots of kisses 💋💋
+  </p>
+</div>
+
+<!-- Gift 2 -->
+<div class="page" id="gift2">
+  <div class="back" onclick="go(2)">⬅</div>
+  <p>
+    Happy 21st birthday my love 🎂💖<br><br>
+    I love you so much 💕<br><br>
+    You are my today, my tomorrow and my always 💫<br><br>
+
+    You make me laugh in every situation 😄<br><br>
+    You supported me in my lowest 🫂<br><br>
+    You gave me motivation and everything you could 🌸<br><br>
+
+    Your smile is the happiest thing I can see 😊<br><br>
+
+    You are my heart ❤️<br>
+    My soul 💫<br>
+    My world 🌍<br>
+    My happiness 💕<br>
+    My joy 😘<br>
+    My supporter 🤍<br>
+    My forever love 💍
+  </p>
+</div>
+
+<!-- Gift 3 -->
+<div class="page" id="gift3">
+  <div class="back" onclick="go(2)">⬅</div>
+  <p>
+    Aaj chand bhi kuch khaas sa hai 🌙<br><br>
+    Taaron ne pehni nayi roshni si hai ⭐<br><br>
+    Shayad wajah sirf itni si hai 💖<br><br>
+    Kyunki aaj janam kisi khaas ka hai 🎂<br><br>
+
+    Tere hasne se subah hoti hai ☀️<br><br>
+    Aur baaton se shaam dhalti hai 🌸<br><br>
+
+    Meri har dua mein ek hi naam hai 🙏<br><br>
+    Aur aaj janamdin kisi aur ka nahi 💕<br><br>
+    Mere khaas ka hai 💍
+  </p>
+</div>
+
+<script>
+/* Page navigation */
+function go(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pages=['','page1','page2','gift1','gift2','gift3'];
+  document.getElementById(pages[n]).classList.add('active');
+}
+
+/* Wrong button */
+function wrong(){
+  alert("Wrong 😄 Try again!");
+}
+
+/* Start site */
+function startSite(e){
+  e.preventDefault();
+  const name=document.getElementById("username").value;
+  document.getElementById("loveText").innerText=`Do you love me, ${name}? 💖`;
+  go(1);
+  const m=document.getElementById("music");
+  m.volume=0.9;
+  m.play();
+}
+
+/* Floating hearts (ALWAYS ON) */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},350);
+</script>
+
+</body>
+</html>
