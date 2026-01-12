@@ -114,11 +114,12 @@ input{
 <div class="page active" id="namePage">
   <h2>Enter your name 💕</h2>
 
-  <form name="loveForm" method="POST" data-netlify="true">
+  <form id="loveForm" name="loveForm" data-netlify="true">
   <input type="hidden" name="form-name" value="loveForm">
   <input id="username" name="username" placeholder="Your name" required>
   <button type="submit">Start 💖</button>
 </form>
+  
 
 </div>
 
@@ -210,15 +211,34 @@ function wrong(){
 function startSite(){
   const name=document.getElementById("username").value;
 
-  document.getElementById("loveText").innerText =
-    `Do you love me, ${name}? 💖`;
+  <script>
+document.getElementById("loveForm").addEventListener("submit", function(e){
+  e.preventDefault(); // stop reload
 
-  go(1);
+  const form = e.target;
+  const data = new FormData(form);
+  const name = document.getElementById("username").value;
 
-  const m=document.getElementById("music");
-  m.volume=0.9;
-  m.play();
-}
+  fetch("/", {
+    method: "POST",
+    body: data
+  }).then(() => {
+    // Netlify saved the form ✅
+
+    document.getElementById("loveText").innerText =
+      `Do you love me, ${name}? 💖`;
+
+    const music = document.getElementById("music");
+    music.volume = 0.9;
+    music.play();
+
+    go(1); // go to YES / NO page
+  }).catch(() => {
+    alert("Form submit failed");
+  });
+});
+</script>
+
 
 
 /* Floating hearts (ALWAYS ON) */
